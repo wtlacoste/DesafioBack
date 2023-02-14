@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesafioBackendAPI.Domain.Enums
 {
-    public enum EstadoDePedido
+    public enum EstadoDelPedido
     {
         CREADO = 1,
         ASIGNADO = 2,

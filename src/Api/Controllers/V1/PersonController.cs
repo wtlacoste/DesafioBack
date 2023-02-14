@@ -6,6 +6,7 @@ using DesafioBackendAPI.Application.UseCase.V1.PersonOperation.Queries.GetList;
 using DesafioBackendAPI.Domain.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Models;
@@ -50,5 +51,6 @@ public class PersonController : ApiControllerBase
             Nombre = body.Nombre
         }));
     }
+ 
 
 }

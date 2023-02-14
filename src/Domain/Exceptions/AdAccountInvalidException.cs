@@ -8,4 +8,6 @@ public class AdAccountInvalidException : Exception
         : base($"AD Account \"{adAccount}\" is invalid.", ex)
     {
     }
+
+    
 }
