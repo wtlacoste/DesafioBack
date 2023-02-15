@@ -30,14 +30,14 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
             var result = await _query.GetByIdAsync<Pedidos>(nameof(request.Id), request.Id);
             var response = new Response<Pedidos>();
 
-         /*   if (result is )
+            if (result is null)
             {
-                response.AddNotification("#3123", nameof(request.Id), string.Format(ErrorMessage.NOT_FOUND_RECORD, "Person", request.Id));
+                response.AddNotification("#3123", nameof(request.Id), string.Format(ErrorMessage.NOT_FOUND_RECORD, "Pedido", request.Id));
                 response.StatusCode = System.Net.HttpStatusCode.NotFound;
 
                 return response;
 
-            }*/
+            }
             response.Content = result;
             return response;
 

@@ -33,7 +33,7 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
                 var resultadoEstadoDelPedido = await _query.FirstOrDefaultQueryAsync<EstadoDelPedido>(sqlString);
                 
                 PedidosDto pedidoDto = new PedidosDto() { 
-                Id= item.Id,
+                Id= (Guid)item.Id,
                 CicloDelPedido=item.CicloDelPedido,
                 NumeroDePedido=item.NumeroDePedido,
                 Cuando=item.Cuando,
