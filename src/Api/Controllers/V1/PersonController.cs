@@ -26,7 +26,21 @@ public class PersonController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(CreatePersonResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(List<Notify>), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create(CreatePersonCommand body) => Result(await Mediator.Send(body));
+    public async Task<IActionResult> Create(CreatePersonDto body)
+    {
+
+		var command = new CreatePersonCommand()
+        {
+            Nombre = body.Nombre,
+            Apellido = body.Apellido
+        };
+
+		string mensaje = "hola mundo";
+
+        var result = await Mediator.Send(command);
+
+		return Ok("ok todo");
+    }
 
     /// <summary>
     /// Listado de persona de la base de datos
