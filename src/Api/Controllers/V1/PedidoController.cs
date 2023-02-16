@@ -22,10 +22,16 @@ public class PedidoController : ApiControllerBase
 	public async Task<IActionResult> Get() => Result(await Mediator.Send(new ListPedido()));
 
 	[HttpGet("{id}")]
-	public async Task<IActionResult> Get(string id) => this.Result(await Mediator.Send(new PedidoCommand() { Id = new Guid(id) }));
+	public async Task<IActionResult> Get(string id) => this.Result(await Mediator.Send(new GetPedido() { Id = id }));
+
 
 	[HttpPost]
-	public async Task<IActionResult> Create(PostPedidoDto body) => Result(await Mediator.Send(new CreatePedidoCommand(body)));
+	public async Task<IActionResult> Create(PostPedidoDto body)  {
+		string mensaje = "hola mundo";
+
+
+		return Result(await Mediator.Send(new CreatePedidoCommand(body)));
+	}
 
 
 

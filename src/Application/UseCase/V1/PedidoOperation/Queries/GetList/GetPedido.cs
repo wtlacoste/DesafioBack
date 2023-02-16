@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetList {
 
-    public record struct PedidoCommand : IRequest<Response<Pedidos>>
+    public record struct GetPedido : IRequest<Response<Pedidos>>
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
     }
-    public class PedidoHandler : IRequestHandler<PedidoCommand, Response<Pedidos>> {
+    public class PedidoHandler : IRequestHandler<GetPedido, Response<Pedidos>> {
 
         private readonly IReadOnlyQuery _query;
 
@@ -25,9 +25,13 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
             _query = query;
         }
 
-        public async Task<Response<Pedidos>> Handle(PedidoCommand request, CancellationToken cancellationToken) { 
+        public async Task<Response<Pedidos>> Handle(GetPedido request, CancellationToken cancellationToken) { 
+
+            
+            Guid IdABuscar = new Guid(request.Id);
         //el primer parametro parece ser el nombre del campo el segundo el valor a evaluar?
             var result = await _query.GetByIdAsync<Pedidos>(nameof(request.Id), request.Id);
+            
             var response = new Response<Pedidos>();
 
             if (result is null)
