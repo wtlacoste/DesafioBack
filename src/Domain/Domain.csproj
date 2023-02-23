@@ -9,4 +9,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="Andreani.Onboarding.Event" Version="6.0.0" />
+	</ItemGroup>
 </Project>

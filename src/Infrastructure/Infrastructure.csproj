@@ -16,6 +16,7 @@
 
   <ItemGroup>
 	<PackageReference Include="Andreani.ARQ.CQRS" Version="6.1.0" />
+	<PackageReference Include="Andreani.Onboarding.Event" Version="6.0.0" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

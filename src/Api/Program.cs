@@ -1,4 +1,6 @@
+using Andreani.ARQ.AMQStreams.Extensions;
 using Andreani.ARQ.WebHost.Extension;
+using Andreani.Scheme.Onboarding;
 using DesafioBackendAPI.Application;
 using DesafioBackendAPI.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +14,12 @@ builder.Host.ConfigureAndreaniWebHost(args);
 builder.Services.ConfigureAndreaniServices();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services
+    .AddKafka(builder.Configuration)
+    .CreateOrUpdateTopic(6, names: "PedidoCreado")
+    .ToProducer<Pedido>("PedidoCreado")
+    .Build();
 
 var app = builder.Build();
 
