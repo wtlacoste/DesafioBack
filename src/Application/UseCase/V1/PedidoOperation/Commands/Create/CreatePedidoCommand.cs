@@ -38,28 +38,29 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Commands.Crea
 			}
 			public async Task<Response<CreatePedidoResponse>> Handle(CreatePedidoCommand request, CancellationToken cancellationToken)
 			{
+			var idPedido = Guid.NewGuid();
 				var entity = new Pedidos()
 				{
 					CuentaCorriente = request.PedidoACrear.CuentaCorriente,
 					CodigoDeContratoInterno = long.Parse(request.PedidoACrear.CodigoDeContratoInterno),
-					Id = Guid.NewGuid(),
+					Id = idPedido,
 					NumeroDePedido = null,
 					EstadoDelPedido = 1,
 					Cuando = DateTime.Now,
-					CicloDelPedido = Guid.NewGuid().ToString(),
+					CicloDelPedido = idPedido.ToString(),
 				};
 				_repository.Insert(entity);
 				await _repository.SaveChangeAsync();
 
-			await _publisher.To<Pedido>(new Pedido() {
-				id = Guid.NewGuid().ToString(),
+			await _publisher.To<Pedido>(new Andreani.Scheme.Onboarding.Pedido() {
+				id = idPedido.ToString(),
 				numeroDePedido = 12,
-				cicloDelPedido = Guid.NewGuid().ToString(),
+				cicloDelPedido = idPedido.ToString(),
                 codigoDeContratoInterno = long.Parse(request.PedidoACrear.CodigoDeContratoInterno),
 				estadoDelPedido = "1",
                 cuentaCorriente = long.Parse(request.PedidoACrear.CuentaCorriente),
 				cuando = DateTime.Now.ToString()
-            }, Guid.NewGuid().ToString());
+            }, idPedido.ToString());
 
 				return new Response<CreatePedidoResponse>
 				{

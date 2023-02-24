@@ -29,11 +29,11 @@ public class PedidoController : ApiControllerBase
 	[ProducesResponseType(typeof(List<Notify>), StatusCodes.Status400BadRequest)]
 	public async Task<IActionResult> Get(string id) => this.Result(await Mediator.Send(new GetPedido() { Id = id }));
 
-	public async Task<IActionResult> Get(string id) => this.Result(await Mediator.Send(new GetPedido() { Id = id }));
-
 
 	[HttpPost]
 	public async Task<IActionResult> Create(PostPedidoDto body)  {
+		string mensaje = "hola mundo";
+
 
 		return Result(await Mediator.Send(new CreatePedidoCommand(body)));
 	}
