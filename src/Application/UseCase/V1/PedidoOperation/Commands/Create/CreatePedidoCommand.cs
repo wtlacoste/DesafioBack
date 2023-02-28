@@ -44,7 +44,7 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Commands.Crea
 					CuentaCorriente = request.PedidoACrear.CuentaCorriente,
 					CodigoDeContratoInterno = long.Parse(request.PedidoACrear.CodigoDeContratoInterno),
 					Id = idPedido,
-					NumeroDePedido = null,
+					NumeroDePedido = 0,
 					EstadoDelPedido = 1,
 					Cuando = DateTime.Now,
 					CicloDelPedido = idPedido.ToString(),

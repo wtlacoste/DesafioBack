@@ -6,6 +6,8 @@ using DesafioBackendAPI.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
+using DesafioBackendAPI.Infrastructure.Services;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,9 +19,11 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services
     .AddKafka(builder.Configuration)
-    .CreateOrUpdateTopic(6, names: "PedidoCreado")
-    .ToProducer<Pedido>("PedidoCreado")
-    .Build();
+	.ToConsumer<Subscriber, Pedido>("PedidoAsignado1")
+	.CreateOrUpdateTopic(6, names: "PedidoCreado1")
+    .ToProducer<Pedido>("PedidoCreado1")
+
+	.Build();
 
 var app = builder.Build();
 
