@@ -11,6 +11,16 @@ using DesafioBackendAPI.Infrastructure.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(name: MyAllowSpecificOrigins,
+					  policy =>
+					  {
+						  policy.WithOrigins("http://localhost:3000", "http://localhost:3000/", "http://localhost:3000/pedido");
+					  });
+});
 
 builder.Host.ConfigureAndreaniWebHost(args);
 builder.Services.ConfigureAndreaniServices();
@@ -26,6 +36,7 @@ builder.Services
 	.Build();
 
 var app = builder.Build();
+app.UseCors(MyAllowSpecificOrigins);
 
 app.ConfigureAndreani(app.Environment, app.Services.GetRequiredService<IApiVersionDescriptionProvider>());
 
