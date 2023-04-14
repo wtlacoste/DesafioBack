@@ -10,3 +10,4 @@ AMQStreams:
   EnableSslCertificateVerification: false
   AutoOffsetReset: Earliest
   AutoRegisterSchemas: true
+URL_REACT_FRONT: "http://localhost:3000"

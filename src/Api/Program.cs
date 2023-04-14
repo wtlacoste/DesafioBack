@@ -10,6 +10,7 @@ using DesafioBackendAPI.Infrastructure.Services;
 
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -18,7 +19,7 @@ builder.Services.AddCors(options =>
 	options.AddPolicy(name: MyAllowSpecificOrigins,
 					  policy =>
 					  {
-						  policy.WithOrigins("http://localhost:3000", "http://localhost:3000/", "http://localhost:3000/pedido");
+						  policy.WithOrigins(builder.Configuration["URL_REACT_FRONT"]);
 					  });
 });
 
