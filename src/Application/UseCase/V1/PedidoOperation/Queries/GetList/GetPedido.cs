@@ -6,6 +6,7 @@ using DesafioBackendAPI.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetList {
 
-    public record struct GetPedido : IRequest<Response<Pedidos>>
+    public record struct GetPedido : IRequest<Response<PedidosDto>>
     {
         public string Id { get; set; }
     }
-    public class PedidoHandler : IRequestHandler<GetPedido, Response<Pedidos>> {
+    public class PedidoHandler : IRequestHandler<GetPedido, Response<PedidosDto>> {
 
         private readonly IReadOnlyQuery _query;
 
@@ -25,16 +26,19 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
             _query = query;
         }
 
-        public async Task<Response<Pedidos>> Handle(GetPedido request, CancellationToken cancellationToken) { 
+        public async Task<Response<PedidosDto>> Handle(GetPedido request, CancellationToken cancellationToken) { 
 
             
             Guid IdABuscar = new Guid(request.Id);
         //el primer parametro parece ser el nombre del campo el segundo el valor a evaluar?
             var result = await _query.GetByIdAsync<Pedidos>(nameof(request.Id), request.Id);
-            
-            var response = new Response<Pedidos>();
+			var sqlString = $"select * from dbo.estadoDelPedido where dbo.estadoDelPedido.id = '{result.EstadoDelPedido}'";
 
-            if (result is null)
+			var resultadoEstadoDelPedido = await _query.FirstOrDefaultQueryAsync<EstadoDelPedido>(sqlString);
+
+			var response = new Response<PedidosDto>();
+
+            if (result.Id.ToString() == "00000000-0000-0000-0000-000000000000")
             {
                 response.AddNotification("#3123", nameof(request.Id), string.Format(ErrorMessage.NOT_FOUND_RECORD, "Pedido", request.Id));
                 response.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -42,7 +46,21 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
                 return response;
 
             }
-            response.Content = result;
+			PedidosDto pedidoDto = new PedidosDto()
+			{
+				Id = (Guid)result.Id,
+				CicloDelPedido = result.CicloDelPedido,
+				NumeroDePedido = result.NumeroDePedido,
+				Cuando = result.Cuando,
+				CuentaCorriente = result.CuentaCorriente,
+				CodigoDeContratoInterno = result.CodigoDeContratoInterno,
+				EstadoDelPedido = new EstadoDelPedidoDto()
+				{
+					Id = resultadoEstadoDelPedido is null ? 1 : resultadoEstadoDelPedido.Id,
+					Descripcion = resultadoEstadoDelPedido is null ? "VACIO" : resultadoEstadoDelPedido.Descripcion
+				}
+			};
+			response.Content = pedidoDto;
             return response;
 
         }
