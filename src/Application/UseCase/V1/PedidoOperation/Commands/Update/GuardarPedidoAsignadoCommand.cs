@@ -44,6 +44,7 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Commands.Upda
 				NumeroDePedido = pedidoToUpdate.numeroDePedido,
 				EstadoDelPedido = 2,
 				Cuando = DateTime.ParseExact(pedidoToUpdate.cuando, "MM/dd/yyyy hh:mm:ss", null),
+
 				CicloDelPedido = pedidoToUpdate.cicloDelPedido,
 			};
 			_repository.Update(entity);
