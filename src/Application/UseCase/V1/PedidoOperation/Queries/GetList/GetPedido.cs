@@ -32,13 +32,11 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
             Guid IdABuscar = new Guid(request.Id);
         //el primer parametro parece ser el nombre del campo el segundo el valor a evaluar?
             var result = await _query.GetByIdAsync<Pedidos>(nameof(request.Id), request.Id);
-			var sqlString = $"select * from dbo.estadoDelPedido where dbo.estadoDelPedido.id = '{result.EstadoDelPedido}'";
-
-			var resultadoEstadoDelPedido = await _query.FirstOrDefaultQueryAsync<EstadoDelPedido>(sqlString);
+			
 
 			var response = new Response<PedidosDto>();
 
-            if (result.Id.ToString() == "00000000-0000-0000-0000-000000000000")
+            if (result is null)
             {
                 response.AddNotification("#3123", nameof(request.Id), string.Format(ErrorMessage.NOT_FOUND_RECORD, "Pedido", request.Id));
                 response.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -46,6 +44,9 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
                 return response;
 
             }
+			var sqlString = $"select * from dbo.estadoDelPedido where dbo.estadoDelPedido.id = '{result.EstadoDelPedido}'";
+
+			var resultadoEstadoDelPedido = await _query.FirstOrDefaultQueryAsync<EstadoDelPedido>(sqlString);
 			PedidosDto pedidoDto = new PedidosDto()
 			{
 				Id = (Guid)result.Id,
