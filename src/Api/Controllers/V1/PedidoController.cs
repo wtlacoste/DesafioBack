@@ -12,12 +12,14 @@ using DesafioBackendAPI.Domain.Dtos;
 using Andreani.ARQ.Pipeline.Clases;
 using Microsoft.AspNetCore.Http;
 using DesafioBackendAPI.Domain.Entities;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebApi.Controllers.V1;
 
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
+
 public class PedidoController : ApiControllerBase
 {
 
@@ -31,6 +33,7 @@ public class PedidoController : ApiControllerBase
 
 
 	[HttpPost]
+
 	public async Task<IActionResult> Create(PostPedidoDto body)  {
 		string mensaje = "hola mundo";
 
