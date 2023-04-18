@@ -14,7 +14,7 @@ namespace DesafioBackendAPI.Domain.Dtos
 	 string? CicloDelPedido,
 	 Int64? CodigoDeContratoInterno,
 	 string? CuentaCorriente,
-	 DateTime? Cuando,
+	 string? Cuando,
 	 EstadoDelPedidoDto? EstadoDelPedido
 	 ) { }
 

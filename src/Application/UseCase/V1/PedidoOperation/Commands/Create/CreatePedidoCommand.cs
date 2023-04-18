@@ -27,6 +27,7 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Commands.Crea
 
     public class CreatePedidoCommandHandler: IRequestHandler<CreatePedidoCommand, Response<CreatePedidoResponse>>
 		{
+		
 			private readonly ITransactionalRepository _repository;
 			private Andreani.ARQ.AMQStreams.Interface.IPublisher _publisher; 
 
@@ -59,9 +60,10 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Commands.Crea
                 codigoDeContratoInterno = long.Parse(request.PedidoACrear.CodigoDeContratoInterno),
 				estadoDelPedido = "1",
                 cuentaCorriente = long.Parse(request.PedidoACrear.CuentaCorriente),
-				cuando = DateTime.Now.ToString()
+				cuando = DateTime.Now.ToString("yyyy-MM-dd")
             }, idPedido.ToString());
 
+			
 				return new Response<CreatePedidoResponse>
 				{
 					Content = new CreatePedidoResponse

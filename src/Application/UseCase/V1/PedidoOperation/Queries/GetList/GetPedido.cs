@@ -52,7 +52,7 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
 				Id = (Guid)result.Id,
 				CicloDelPedido = result.CicloDelPedido,
 				NumeroDePedido = result.NumeroDePedido,
-				Cuando = result.Cuando,
+				Cuando = result.Cuando.ToString(),
 				CuentaCorriente = result.CuentaCorriente,
 				CodigoDeContratoInterno = result.CodigoDeContratoInterno,
 				EstadoDelPedido = new EstadoDelPedidoDto()
