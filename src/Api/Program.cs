@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 	options.AddPolicy(name: MyAllowSpecificOrigins,
 					  policy =>
 					  {
-						  policy.WithOrigins(builder.Configuration["URL_REACT_FRONT"]).AllowAnyMethod().AllowAnyHeader();
+						  policy.WithOrigins(builder.Configuration["URL_REACT_FRONT"], builder.Configuration["URL_REACT_OCP"]).AllowAnyMethod().AllowAnyHeader();
 					  });
 });
 

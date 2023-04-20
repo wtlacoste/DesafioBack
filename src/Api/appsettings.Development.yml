@@ -11,3 +11,4 @@ AMQStreams:
   AutoOffsetReset: Earliest
   AutoRegisterSchemas: true
 URL_REACT_FRONT: "http://localhost:3000"
+URL_REACT_OCP: "https://onboarding-front-walter-git-onboarding-2023.apps.ocptest.andreani.com.ar"
