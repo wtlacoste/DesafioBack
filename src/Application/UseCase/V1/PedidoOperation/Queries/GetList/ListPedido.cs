@@ -26,8 +26,8 @@ namespace DesafioBackendAPI.Application.UseCase.V1.PedidoOperation.Queries.GetLi
 
 		public async Task<Response<List<PedidosDto>>> Handle(ListPedido request, CancellationToken cancellationToken)
 		{
-              var result = await _query.GetAllAsync<Pedidos>(nameof(Pedidos));
-            //var result = await _query.ExecuteQueryAsync<Pedidos>($"select TOP(100) * from dbo.pedidos", nameof(Pedidos));
+              //var result = await _query.GetAllAsync<Pedidos>(nameof(Pedidos));
+            var result = await _query.ExecuteQueryAsync<Pedidos>($"select * from dbo.pedidos order by cuando DESC", nameof(Pedidos));
 
 			List <PedidosDto> resultPedidos = new List<PedidosDto>();
             foreach (var item in result) {
